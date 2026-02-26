@@ -1,5 +1,6 @@
 package itq.eventapi.event;
 
+import itq.eventapi.employee.Employee;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +44,10 @@ public class EventService {
             System.err.println("Student ID not found");
         }
         return s;
+    }
+
+    public void addEmployee(UUID eventID, Employee employee) {
+        repository.get(eventID).addEmployee(employee);
     }
 
     public ArrayList<Event> getAll() {
