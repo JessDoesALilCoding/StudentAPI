@@ -3,6 +3,7 @@ package itq.eventapi.event;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 @Service
@@ -42,6 +43,10 @@ public class EventService {
             System.err.println("Student ID not found");
         }
         return s;
+    }
+
+    public ArrayList<Event> getAll() {
+        return repository.getAll();
     }
 
 }

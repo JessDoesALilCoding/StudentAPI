@@ -2,6 +2,7 @@ package itq.eventapi.event;
 
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -30,6 +31,10 @@ public class EventRepository {
             throw new IllegalArgumentException();
 
         return events.get(id);
+    }
+
+    public ArrayList<Event> getAll() {
+        return (ArrayList<Event>) events.values();
     }
 
     public void delete(UUID id) {
