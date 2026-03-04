@@ -1,0 +1,110 @@
+classDiagram
+direction LR
+
+%% =========================
+%% Application
+%% =========================
+class EventApiApplication {
+  +main(String[] args)
+}
+
+%% =========================
+%% DOMAIN (Schritt 3 Kern)
+%% =========================
+class Employee {
+  -UUID id
+  -String firstName
+  -String lastName
+  +Employee(String firstName, String lastName)
+}
+
+class Event {
+  -UUID id
+  -String name
+  -Date date
+  -HashMap~UUID, Employee~ employees
+  +Event(String name, Date date)
+  +addEmployee(Employee employee)
+  +removeEmployee(Employee employee)
+}
+
+Event "1" o-- "*" Employee : participants
+
+%% =========================
+%% EMPLOYEE LAYER
+%% =========================
+class EmployeeController {
+  -EmployeeService service
+  +ArrayList~Employee~ getAll()
+  +void delete(Employee employee)
+  +Employee update(Employee employee)
+  +Employee add(Employee employee)
+}
+
+class EmployeeService {
+  -EmployeeRepository repository
+  +void addEmployee(Employee employee)
+  +void updateEmployee(Employee employee)
+  +void deleteEmployee(UUID id)
+  +Employee getEmployee(UUID id)
+  +ArrayList~Employee~ getAll()
+}
+
+class EmployeeRepository {
+  -HashMap~UUID, Employee~ employees
+  +void add(Employee employee)
+  +void update(Employee employee)
+  +Employee get(UUID id)
+  +ArrayList~Employee~ getAll()
+  +void delete(UUID id)
+}
+
+EmployeeController --> EmployeeService
+EmployeeService --> EmployeeRepository
+EmployeeRepository o-- "*" Employee : stores
+
+%% =========================
+%% EVENT LAYER
+%% =========================
+class EventController {
+  -EventService service
+  -EmployeeService employeeService
+  +ArrayList~Event~ getAll()
+  +Event add(Event event)
+  +Event update(Event event)
+  +Event get(UUID id)
+  +Event addEmployee(UUID eventId, UUID employeeId)
+  +Event removeEmployee(UUID eventId, UUID employeeId)
+}
+
+class EventService {
+  -EventRepository repository
+  +void addEvent(Event event)
+  +void updateEvent(Event event)
+  +void deleteEvent(UUID id)
+  +Event getEvent(UUID id)
+  +void addEmployee(UUID eventID, Employee employee)
+  +ArrayList~Event~ getAll()
+}
+
+class EventRepository {
+  -HashMap~UUID, Event~ events
+  +void add(Event event)
+  +void update(Event event)
+  +Event get(UUID id)
+  +ArrayList~Event~ getAll()
+  +void delete(UUID id)
+}
+
+EventController --> EventService
+EventController --> EmployeeService
+EventService --> EventRepository
+EventRepository o-- "*" Event : stores
+
+%% =========================
+%% Cross references
+%% =========================
+EventController ..> Event : returns/accepts
+EmployeeController ..> Employee : returns/accepts
+EventService ..> Employee : uses
+Event ..> Employee : contains
