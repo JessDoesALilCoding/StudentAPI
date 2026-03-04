@@ -20,6 +20,10 @@ public class Event {
     }
 
     public void addEmployee(Employee employee) {
-        employees.put(employee.getId(),employee);
+        employees.put(employee.getId(), employee);
+    }
+
+    public void removeEmployee(Employee employee) {
+        employees.remove(employee.getId());
     }
 }
