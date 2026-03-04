@@ -1,0 +1,91 @@
+classDiagram
+direction TB
+
+class EventApiApplication {
+  +main(String[] args)
+}
+
+class Employee {
+  -UUID id
+  -String firstName
+  -String lastName
+  +Employee(String firstName, String lastName)
+}
+
+class Event {
+  -UUID id
+  -String name
+  -Date date
+  -HashMap employees
+  +Event(String name, Date date)
+  +addEmployee(Employee employee)
+  +removeEmployee(Employee employee)
+}
+
+class EmployeeController {
+  -EmployeeService service
+  +getAll()
+  +delete(Employee employee)
+  +update(Employee employee)
+  +add(Employee employee)
+}
+
+class EmployeeService {
+  -EmployeeRepository repository
+  +addEmployee(Employee employee)
+  +updateEmployee(Employee employee)
+  +deleteEmployee(UUID id)
+  +getEmployee(UUID id)
+  +getAll()
+}
+
+class EmployeeRepository {
+  -HashMap employees
+  +add(Employee employee)
+  +update(Employee employee)
+  +get(UUID id)
+  +getAll()
+  +delete(UUID id)
+}
+
+class EventController {
+  -EventService service
+  -EmployeeService employeeService
+  +getAll()
+  +add(Event event)
+  +update(Event event)
+  +get(UUID id)
+  +addEmployee(UUID eventId, UUID employeeId)
+  +removeEmployee(UUID eventId, UUID employeeId)
+}
+
+class EventService {
+  -EventRepository repository
+  +addEvent(Event event)
+  +updateEvent(Event event)
+  +deleteEvent(UUID id)
+  +getEvent(UUID id)
+  +addEmployee(UUID eventID, Employee employee)
+  +getAll()
+}
+
+class EventRepository {
+  -HashMap events
+  +add(Event event)
+  +update(Event event)
+  +get(UUID id)
+  +getAll()
+  +delete(UUID id)
+}
+
+Event "1" o-- "*" Employee : employees
+
+EmployeeController --> EmployeeService
+EventController --> EventService
+EventController --> EmployeeService
+
+EmployeeService --> EmployeeRepository
+EventService --> EventRepository
+
+EmployeeRepository --> Employee
+EventRepository --> Event
