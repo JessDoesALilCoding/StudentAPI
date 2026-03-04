@@ -120,43 +120,11 @@ Das System soll mindestens 100 gleichzeitige Nutzer unterstützen.
 **NFR3 (Prio: Must) – Wartbarkeit/Struktur**  
 Der Code muss modular aufgebaut sein und eine klare Schichtenarchitektur aufweisen.
 
-**NFR4 (Prio: Must) – Sicherheit**  
+**NFR4 (Prio: Should) – Sicherheit**  
 Nur autorisierte Benutzer dürfen Änderungen an Events oder Mitarbeitenden durchführen.
 
 **NFR5 (Prio: Must) – API-Standardisierung**  
 Die API muss REST-konform gestaltet sein.
 
-**NFR6 (Prio: Could) – Dokumentation**  
-Die API sollte mithilfe von OpenAPI / Swagger dokumentiert werden.
-
----
-
-## 8. Qualitätsmerkmale guter Anforderungen
-Eine Anforderung soll:
-- eindeutig
-- atomar
-- testbar
-- vollständig
-- konsistent
-- lösungsneutral  
-  sein.
-
----
-
-## 9. Abgrenzung
-- **Domänenmodell (UML):** fachliche Struktur (Klassen, Attribute, Beziehungen)
-- **API-Design:** REST-Endpunkte + Methoden + Statuscodes basierend auf Anforderungen
-
----
-
-## 10. Typische Fehler bei Anforderungen
-- mehrere Anforderungen in einem Satz
-- unklare Begriffe („schnell“, „intuitiv“)
-- technische Lösungen statt fachliche Anforderungen
-- fehlende Nummerierung / fehlende Testbarkeit
-- Widersprüche
-
----
-
-## 11. Zusammenfassung
-Die Anforderungen (FR/NFR) sind nummeriert, priorisiert und bilden die Grundlage für UML-Domänenmodell und REST-API-Design.
+**NFR6 (Prio: Must) – Dokumentation**  
+Die API muss mithilfe von OpenAPI / Swagger dokumentiert werden.
