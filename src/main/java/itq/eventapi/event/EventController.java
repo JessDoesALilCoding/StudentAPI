@@ -32,7 +32,7 @@ public class EventController {
         return event;
     }
 
-    @PostMapping("/{id}")
+    @GetMapping("/{id}")
     public Event get(@PathVariable UUID id) {
         return service.getEvent(id);
     }
