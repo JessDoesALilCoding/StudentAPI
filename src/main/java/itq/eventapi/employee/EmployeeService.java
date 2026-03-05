@@ -13,6 +13,7 @@ public class EmployeeService {
     private EmployeeRepository repository;
 
     public void addEmployee(Employee employee) {
+        employee.setRandomID(); //Ensure random UUID
         try {
             repository.add(employee);
         } catch (IllegalArgumentException ignored) {

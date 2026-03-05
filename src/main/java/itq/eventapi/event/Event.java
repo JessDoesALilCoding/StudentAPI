@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Data
 public class Event {
-    private final UUID id = UUID.randomUUID();
+    private UUID id = UUID.randomUUID();
     private String name;
     private Date date;
     private final HashMap<UUID, Employee> employees = new HashMap<>();
@@ -25,5 +25,9 @@ public class Event {
 
     public void removeEmployee(Employee employee) {
         employees.remove(employee.getId());
+    }
+
+    public void setRandomID() {
+        id = UUID.randomUUID();
     }
 }

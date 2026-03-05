@@ -13,6 +13,7 @@ public class EventService {
     private EventRepository repository;
 
     public void addEvent(Event event) {
+        event.setRandomID(); //Ensure random UUID
         try {
             repository.add(event);
         } catch (IllegalArgumentException ignored) {
