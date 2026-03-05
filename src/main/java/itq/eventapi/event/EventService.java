@@ -29,11 +29,11 @@ public class EventService {
         try {
             Event e = repository.get(event.getId());
             if (event.getName().isEmpty())
-                return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 
 
             if (event.getEmployees().size()>event.getMaxParticipants())
-                return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 
             repository.update(event);
             return ResponseEntity.status(HttpStatus.OK).body(e);
@@ -72,10 +72,10 @@ public class EventService {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 
             if (e.getDate().before(new Date()))
-                return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 
             if (e.getEmployees().size()+1>e.getMaxParticipants())
-                return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 
             e.addEmployee(employee);
             return ResponseEntity.status(HttpStatus.OK).body(e);

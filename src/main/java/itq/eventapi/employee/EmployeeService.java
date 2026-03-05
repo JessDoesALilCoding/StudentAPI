@@ -16,7 +16,7 @@ public class EmployeeService {
     public ResponseEntity<Employee> addEmployee(Employee employee) {
         employee.setRandomID();
         if (employee.getFirstName().isEmpty() || employee.getLastName().isEmpty())
-            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 
         repository.add(employee);
         return ResponseEntity.status(HttpStatus.OK).body(employee);
@@ -27,7 +27,7 @@ public class EmployeeService {
         try {
             Employee e = repository.get(employee.getId());
             if (e.getFirstName().isEmpty() || e.getLastName().isEmpty())
-                return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 
             repository.update(employee);
             return ResponseEntity.status(HttpStatus.OK).body(e);
