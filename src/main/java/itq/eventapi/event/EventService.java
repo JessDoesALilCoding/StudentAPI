@@ -69,19 +69,16 @@ public class EventService {
         }
     }
 
-    public ResponseEntity<Event> addEmployee(UUID eventID, Employee employee) {
+    public ResponseEntity<Event> addEmployee(UUID eventID, UUID employeeID) {
         try {
             Event e = repository.get(eventID);
-            if (employee == null)
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-
             if (e.getDate().before(new Date()))
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 
             if (e.getEmployees().size() + 1 > e.getMaxParticipants())
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 
-            e.addEmployee(employee);
+            e.addEmployee(employeeID);
             return ResponseEntity.status(HttpStatus.OK).body(e);
         } catch (IllegalArgumentException ignored) {
             System.err.println("Employee- or Event ID not found!");
@@ -89,13 +86,10 @@ public class EventService {
         }
     }
 
-    public ResponseEntity<Event> removeEmployee(UUID eventID, Employee employee) {
+    public ResponseEntity<Event> removeEmployee(UUID eventID, UUID employeeID) {
         try {
             Event e = repository.get(eventID);
-            if (employee == null)
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-
-            e.removeEmployee(employee);
+            e.removeEmployee(employeeID);
             return ResponseEntity.status(HttpStatus.OK).body(e);
         } catch (IllegalArgumentException ignored) {
             System.err.println("Employee- or Event ID not found!");

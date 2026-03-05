@@ -43,16 +43,12 @@ public class EventController {
 
     @PostMapping("/{eventId}/employee/{employeeId}")
     public ResponseEntity<Event> addEmployee(@PathVariable UUID eventId, @PathVariable UUID employeeId) {
-        ResponseEntity<Employee> employeeResponseEntity = employeeService.getEmployee(employeeId);
-
-        return service.addEmployee(eventId,employeeResponseEntity.getBody());
+        return service.addEmployee(eventId, employeeId);
     }
 
     @DeleteMapping("/{eventId}/employee/{employeeId}")
     public ResponseEntity<Event> removeEmployee(@PathVariable UUID eventId, @PathVariable UUID employeeId) {
-        ResponseEntity<Employee> employeeResponseEntity = employeeService.getEmployee(employeeId);
-
-        return service.removeEmployee(eventId,employeeResponseEntity.getBody());
+        return service.removeEmployee(eventId, employeeId);
     }
 
 }

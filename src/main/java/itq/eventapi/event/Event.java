@@ -3,6 +3,7 @@ package itq.eventapi.event;
 import itq.eventapi.employee.Employee;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
@@ -13,19 +14,19 @@ public class Event {
     private String name;
     private Date date;
     private int maxParticipants;
-    private final HashMap<UUID, Employee> employees = new HashMap<>();
+    private final ArrayList<UUID> employees = new ArrayList<>();
 
     public Event(String name, Date date) {
         this.name = name;
         this.date = date;
     }
 
-    public void addEmployee(Employee employee) {
-        employees.put(employee.getId(), employee);
+    public void addEmployee(UUID employeeID) {
+        employees.add(employeeID);
     }
 
-    public void removeEmployee(Employee employee) {
-        employees.remove(employee.getId());
+    public void removeEmployee(UUID employeeID) {
+        employees.remove(employeeID);
     }
 
     public void setRandomID() {
