@@ -25,6 +25,20 @@ public class EventService {
 
     }
 
+    public ResponseEntity<Event> getEvent(UUID id) {
+        try {
+            Event e = repository.get(id);
+            return ResponseEntity.status(HttpStatus.OK).body(e);
+        } catch (IllegalArgumentException ignored) {
+            System.err.println("Event id " + id + " not found!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    public ArrayList<Event> getAll() {
+        return repository.getAll();
+    }
+
     public ResponseEntity<Event> updateEvent(Event event) {
         try {
             Event e = repository.get(event.getId());
@@ -32,7 +46,7 @@ public class EventService {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 
 
-            if (event.getEmployees().size()>event.getMaxParticipants())
+            if (event.getEmployees().size() > event.getMaxParticipants())
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 
             repository.update(event);
@@ -55,26 +69,16 @@ public class EventService {
         }
     }
 
-    public ResponseEntity<Event> getEvent(UUID id) {
-        try {
-            Event e = repository.get(id);
-            return ResponseEntity.status(HttpStatus.OK).body(e);
-        } catch (IllegalArgumentException ignored) {
-            System.err.println("Event id " + id + " not found!");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-    }
-
     public ResponseEntity<Event> addEmployee(UUID eventID, Employee employee) {
         try {
             Event e = repository.get(eventID);
-            if(employee == null)
+            if (employee == null)
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 
             if (e.getDate().before(new Date()))
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 
-            if (e.getEmployees().size()+1>e.getMaxParticipants())
+            if (e.getEmployees().size() + 1 > e.getMaxParticipants())
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 
             e.addEmployee(employee);
@@ -88,7 +92,7 @@ public class EventService {
     public ResponseEntity<Event> removeEmployee(UUID eventID, Employee employee) {
         try {
             Event e = repository.get(eventID);
-            if(employee == null)
+            if (employee == null)
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 
             e.removeEmployee(employee);
@@ -99,8 +103,5 @@ public class EventService {
         }
     }
 
-    public ArrayList<Event> getAll() {
-        return repository.getAll();
-    }
 
 }

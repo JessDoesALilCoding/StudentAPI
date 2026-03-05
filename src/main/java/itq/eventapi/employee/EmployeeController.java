@@ -13,14 +13,9 @@ import java.util.UUID;
 public class EmployeeController {
     private EmployeeService service;
 
-    @GetMapping
-    public ArrayList<Employee> getAll() {
-        return service.getAll();
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Employee> delete(@PathVariable UUID id) {
-        return service.deleteEmployee(id);
+    @PostMapping
+    public ResponseEntity<Employee> add(@RequestBody Employee employee) {
+        return service.addEmployee(employee);
     }
 
     @GetMapping("/{id}")
@@ -28,13 +23,20 @@ public class EmployeeController {
         return service.getEmployee(id);
     }
 
+    @GetMapping
+    public ArrayList<Employee> getAll() {
+        return service.getAll();
+    }
+
     @PatchMapping
     public ResponseEntity<Employee> update(@RequestBody Employee employee) {
         return service.updateEmployee(employee);
     }
 
-    @PostMapping
-    public ResponseEntity<Employee> add(@RequestBody Employee employee) {
-        return service.addEmployee(employee);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Employee> delete(@PathVariable UUID id) {
+        return service.deleteEmployee(id);
     }
-}
+
+
+    }

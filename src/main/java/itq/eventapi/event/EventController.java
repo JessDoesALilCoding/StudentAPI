@@ -16,19 +16,9 @@ public class EventController {
     private EventService service;
     private EmployeeService employeeService;
 
-    @GetMapping
-    public ArrayList<Event> getAll() {
-        return service.getAll();
-    }
-
     @PostMapping
     public ResponseEntity<Event> add(@RequestBody Event event) {
         return service.addEvent(event);
-    }
-
-    @PatchMapping
-    public ResponseEntity<Event> update(@RequestBody Event event) {
-        return service.updateEvent(event);
     }
 
     @GetMapping("/{id}")
@@ -36,6 +26,20 @@ public class EventController {
         return service.getEvent(id);
     }
 
+    @GetMapping
+    public ArrayList<Event> getAll() {
+        return service.getAll();
+    }
+
+    @PatchMapping
+    public ResponseEntity<Event> update(@RequestBody Event event) {
+        return service.updateEvent(event);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Event> delete(@PathVariable UUID id) {
+        return service.deleteEvent(id);
+    }
 
     @PostMapping("/{eventId}/employee/{employeeId}")
     public ResponseEntity<Event> addEmployee(@PathVariable UUID eventId, @PathVariable UUID employeeId) {
@@ -51,8 +55,4 @@ public class EventController {
         return service.removeEmployee(eventId,employeeResponseEntity.getBody());
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Event> delete(@PathVariable UUID id) {
-        return service.deleteEvent(id);
-    }
 }

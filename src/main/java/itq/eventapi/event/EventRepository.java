@@ -16,12 +16,6 @@ public class EventRepository {
         events.put(event.getId(), event);
     }
 
-    public void update(Event event) {
-        if(events.get(event.getId()) == null)
-            throw new IllegalArgumentException();
-        events.put(event.getId(), event);
-    }
-
     public Event get(UUID id) {
         if(events.get(id) == null)
             throw new IllegalArgumentException();
@@ -30,6 +24,12 @@ public class EventRepository {
 
     public ArrayList<Event> getAll() {
         return new ArrayList<>(events.values());
+    }
+
+    public void update(Event event) {
+        if(events.get(event.getId()) == null)
+            throw new IllegalArgumentException();
+        events.put(event.getId(), event);
     }
 
     public void delete(UUID id) {

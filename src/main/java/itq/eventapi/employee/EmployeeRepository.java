@@ -14,12 +14,6 @@ public class EmployeeRepository {
         employees.put(employee.getId(), employee);
     }
 
-    public void update(Employee employee) {
-        if(employees.get(employee.getId()) == null)
-            throw new IllegalArgumentException();
-        employees.put(employee.getId(), employee);
-    }
-
     public Employee get(UUID id) {
         if(employees.get(id) == null)
             throw new IllegalArgumentException();
@@ -28,6 +22,12 @@ public class EmployeeRepository {
 
     public ArrayList<Employee> getAll() {
         return new ArrayList<>(employees.values());
+    }
+
+    public void update(Employee employee) {
+        if(employees.get(employee.getId()) == null)
+            throw new IllegalArgumentException();
+        employees.put(employee.getId(), employee);
     }
 
     public void delete(UUID id) {

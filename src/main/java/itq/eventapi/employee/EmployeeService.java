@@ -23,6 +23,20 @@ public class EmployeeService {
 
     }
 
+    public ResponseEntity<Employee> getEmployee(UUID id) {
+        try {
+            Employee e = repository.get(id);
+            return ResponseEntity.status(HttpStatus.OK).body(e);
+        } catch (IllegalArgumentException ignored) {
+            System.err.println("Employee id " + id + " not found!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    public ArrayList<Employee> getAll() {
+        return repository.getAll();
+    }
+
     public ResponseEntity<Employee> updateEmployee(Employee employee) {
         try {
             Employee e = repository.get(employee.getId());
@@ -49,17 +63,5 @@ public class EmployeeService {
         }
     }
 
-    public ResponseEntity<Employee> getEmployee(UUID id) {
-        try {
-            Employee e = repository.get(id);
-            return ResponseEntity.status(HttpStatus.OK).body(e);
-        } catch (IllegalArgumentException ignored) {
-            System.err.println("Employee id " + id + " not found!");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-    }
 
-    public ArrayList<Employee> getAll() {
-        return repository.getAll();
-    }
 }
