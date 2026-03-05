@@ -3,6 +3,7 @@ package itq.eventapi.event;
 import itq.eventapi.employee.Employee;
 import itq.eventapi.employee.EmployeeService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -21,36 +22,37 @@ public class EventController {
     }
 
     @PostMapping
-    public Event add(@RequestBody Event event) {
-        service.addEvent(event);
-        return event;
+    public ResponseEntity<Event> add(@RequestBody Event event) {
+        return service.addEvent(event);
     }
 
     @PatchMapping
-    public Event update(@RequestBody Event event) {
-        service.updateEvent(event);
-        return event;
+    public ResponseEntity<Event> update(@RequestBody Event event) {
+        return service.updateEvent(event);
     }
 
     @GetMapping("/{id}")
-    public Event get(@PathVariable UUID id) {
+    public ResponseEntity<Event> get(@PathVariable UUID id) {
         return service.getEvent(id);
     }
 
 
     @PostMapping("/{eventId}/employee/{employeeId}")
-    public Event addEmployee(@PathVariable UUID eventId, @PathVariable UUID employeeId) {
-        Event event = service.getEvent(eventId);
-        Employee employee = employeeService.getEmployee(employeeId);
-        event.addEmployee(employee);
-        return event;
+    public ResponseEntity<Event> addEmployee(@PathVariable UUID eventId, @PathVariable UUID employeeId) {
+        ResponseEntity<Employee> employeeResponseEntity = employeeService.getEmployee(employeeId);
+
+        return service.addEmployee(eventId,employeeResponseEntity.getBody());
     }
 
     @DeleteMapping("/{eventId}/employee/{employeeId}")
-    public Event removeEmployee(@PathVariable UUID eventId, @PathVariable UUID employeeId) {
-        Event event = service.getEvent(eventId);
-        Employee employee = employeeService.getEmployee(employeeId);
-        event.removeEmployee(employee);
-        return event;
+    public ResponseEntity<Event> removeEmployee(@PathVariable UUID eventId, @PathVariable UUID employeeId) {
+        ResponseEntity<Employee> employeeResponseEntity = employeeService.getEmployee(employeeId);
+
+        return service.removeEmployee(eventId,employeeResponseEntity.getBody());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Event> delete(@PathVariable UUID id) {
+        return service.deleteEvent(id);
     }
 }

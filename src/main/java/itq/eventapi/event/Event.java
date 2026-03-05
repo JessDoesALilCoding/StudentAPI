@@ -12,6 +12,7 @@ public class Event {
     private UUID id = UUID.randomUUID();
     private String name;
     private Date date;
+    private int maxParticipants;
     private final HashMap<UUID, Employee> employees = new HashMap<>();
 
     public Event(String name, Date date) {

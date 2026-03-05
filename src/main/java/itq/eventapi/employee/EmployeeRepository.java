@@ -1,6 +1,5 @@
 package itq.eventapi.employee;
 
-import itq.eventapi.event.Event;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -12,8 +11,6 @@ public class EmployeeRepository {
     private final HashMap<UUID, Employee> employees = new HashMap<>();
 
     public void add(Employee employee) {
-        if(employees.get(employee.getId()) != null)
-            throw new IllegalArgumentException();
         employees.put(employee.getId(), employee);
     }
 

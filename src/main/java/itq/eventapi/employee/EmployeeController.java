@@ -1,6 +1,7 @@
 package itq.eventapi.employee;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -17,25 +18,23 @@ public class EmployeeController {
         return service.getAll();
     }
 
-    @DeleteMapping
-    public void delete(@RequestBody Employee employee) {
-        service.deleteEmployee(employee.getId());
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Employee> delete(@PathVariable UUID id) {
+        return service.deleteEmployee(id);
     }
 
     @GetMapping("/{id}")
-    public Employee get(@PathVariable UUID id) {
+    public ResponseEntity<Employee> get(@PathVariable UUID id) {
         return service.getEmployee(id);
     }
 
     @PatchMapping
-    public Employee update(@RequestBody Employee employee) {
-        service.updateEmployee(employee);
-        return employee;
+    public ResponseEntity<Employee> update(@RequestBody Employee employee) {
+        return service.updateEmployee(employee);
     }
 
     @PostMapping
-    public Employee add(@RequestBody Employee employee) {
-        service.addEmployee(employee);
-        return employee;
+    public ResponseEntity<Employee> add(@RequestBody Employee employee) {
+        return service.addEmployee(employee);
     }
 }

@@ -1,21 +1,3 @@
-### Funktionale Anforderungen
-1. **Event anlegen**: Das System muss das Anlegen eines neuen Events ermöglichen.
-2. **Event anzeigen**: Das System muss Events und deren Eigenschaften anzeigen können
-3. **Event aktualisieren**: Das System muss die Eigenschaften bereits bestehende Events bearbeiten können 
-4. **Event löschen**: Das System muss bereits bestehende Events wieder entfernen können
-5. **Mitarbeiter anlegen**: Das System muss das Anlegen eines neuen Mitarbeiters ermöglichen.
-6. **Mitarbeiter anzeigen**: Das System muss Mitarbeiter und deren Eigenschaften anzeigen können
-7. **Mitarbeiter löschen**: Das System muss bereits bestehende Mitarbeiter wieder entfernen können
-8. **Mitarbeiter zu Event hinzufügen**: Das System muss Mitarbeiter zu einem Event hinzufügen können
-9. **Mitarbeiter von einem Event entfernen**: Das System muss Mitarbeiter von einem Event entfernen können.
-10. **Teilnehmerliste anzeigen**: Das System muss alle an einem Event teilnehmenden Mitarbeiter anzeigen können
-11. 
-
-
-### Nicht-Funktionale Anforderungen
-1. **
-
-
 # Anforderungsanalyse – Event-Management-System
 
 ## 1. Einleitung
@@ -96,13 +78,16 @@ Das System sollte verhindern, dass mehr Mitarbeitende zu einem Event hinzugefüg
 
 ## 6. Geschäftsregeln (GR)
 
-**GR1 – Maximale Teilnehmerzahl**  
+**GR1 – Datensatzintegrität**  
+Mitarbeiter und Events können nicht ohne Namen angelegt werden.
+
+**GR2 – Maximale Teilnehmerzahl**  
 Ein Event besitzt eine maximale Teilnehmerzahl. Diese darf nicht überschritten werden.
 
-**GR2 – Eindeutige Identifikation**  
-Jedes Event und jeder Mitarbeiter muss eine eindeutige ID besitzen.
+**GR3 – Anmeldung nur für zukünftige Events**  
+Mitarbeiter können nur für Events eingetragen werden, die noch nicht stattgefunden haben.
 
-**GR3 – Zuordnung**  
+**GR4 – Zuordnung**  
 Ein Mitarbeiter kann an mehreren Events teilnehmen.
 
 ---

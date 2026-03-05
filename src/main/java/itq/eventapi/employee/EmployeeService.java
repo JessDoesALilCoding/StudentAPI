@@ -1,7 +1,8 @@
 package itq.eventapi.employee;
 
-import itq.eventapi.event.Event;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,39 +13,50 @@ import java.util.UUID;
 public class EmployeeService {
     private EmployeeRepository repository;
 
-    public void addEmployee(Employee employee) {
-        employee.setRandomID(); //Ensure random UUID
-        try {
-            repository.add(employee);
-        } catch (IllegalArgumentException ignored) {
-            System.err.println("Employee already exists");
-        }
+    public ResponseEntity<Employee> addEmployee(Employee employee) {
+        employee.setRandomID();
+        if (employee.getFirstName().isEmpty() || employee.getLastName().isEmpty())
+            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);
+
+        repository.add(employee);
+        return ResponseEntity.status(HttpStatus.OK).body(employee);
+
     }
 
-    public void updateEmployee(Employee employee) {
+    public ResponseEntity<Employee> updateEmployee(Employee employee) {
         try {
+            Employee e = repository.get(employee.getId());
+            if (e.getFirstName().isEmpty() || e.getLastName().isEmpty())
+                return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);
+
             repository.update(employee);
+            return ResponseEntity.status(HttpStatus.OK).body(e);
+
         } catch (IllegalArgumentException ignored) {
             System.err.println("Employee " + employee + " not found!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 
-    public void deleteEmployee(UUID id) {
+    public ResponseEntity<Employee> deleteEmployee(UUID id) {
         try {
+            Employee e = repository.get(id);
             repository.delete(id);
+            return ResponseEntity.status(HttpStatus.OK).body(e);
         } catch (IllegalArgumentException ignored) {
             System.err.println("Employee id " + id + " not found!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 
-    public Employee getEmployee(UUID id) {
-        Employee s = null;
+    public ResponseEntity<Employee> getEmployee(UUID id) {
         try {
-            s = repository.get(id);
+            Employee e = repository.get(id);
+            return ResponseEntity.status(HttpStatus.OK).body(e);
         } catch (IllegalArgumentException ignored) {
             System.err.println("Employee id " + id + " not found!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-        return s;
     }
 
     public ArrayList<Employee> getAll() {
